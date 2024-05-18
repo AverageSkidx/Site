@@ -3,17 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
+    <title>hi</title>
     <style>
         body {
             background-color: black;
             color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .about-me {
+            flex-grow: 1;
+            margin-right: 20px;
+        }
+        
+        .about-me h2 {
+            margin-top: 0;
+        }
+
+        .about-me p {
+            margin-bottom: 20px;
+        }
+        
+        .profile-img {
+            width: 300px;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>Hello and welcome to my site :)</h1>
-    <p>My GitHub: <a href="https://github.com/AverageSkidx" style="color: white;">https://github.com/AverageSkidx</a></p>
-    <img src="https://th.bing.com/th/id/R.0659537aa1fa348b4a12e1c3d6c4d232?rik=t6aMXZeI6rhaDA&pid=ImgRaw&r=0" alt="Description of your image" width="400">
+    <div class="about-me">
+        <h2>About me:</h2>
+        <p>I like microcontrollers and badusbs, i like programming arduinos and microbits :) </p>
+        <p>github page: <a href="https://github.com/AverageSkidx" style="color: white;">https://github.com/AverageSkidx</a></p>
+    </div>
+    <div>
+        <img src="https://th.bing.com/th/id/R.0659537aa1fa348b4a12e1c3d6c4d232?rik=t6aMXZeI6rhaDA&pid=ImgRaw&r=0" alt="Profile Image" class="profile-img">
+    </div>
 </body>
 </html>
