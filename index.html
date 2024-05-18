@@ -23,13 +23,13 @@
     <h1>Hello and welcome to my site!</h1>
     <p>My interests are microcontrollers, badusbs and gaming. I enjoy programming boards like the pi pico, digispark, microbit and more! I like to play games like Roblox/SCP:SL. I know a bit of lua, batch, duckyscript and I'm currently learning Arduino!</p>
     
-    <form id="contactForm" onsubmit="validateAndSendEmail(event)">
+    <form id="contactForm">
         <label for="email">Want to contact me? Put your email and message here:</label>
-        <input type="email" id="email" name="email" required placeholder="example@mail.com">
+        <input type="email" id="email" name="email" required placeholder="johndoe@gmail.com">
         
         <textarea id="messageInput" name="message" rows="4" required placeholder="Type your message here"></textarea>
         
-        <button type="submit">Submit</button>
+        <button type="button" onclick="validateAndSendEmail()">Submit</button>
     </form>
     
     <p id="message"></p>
@@ -37,9 +37,7 @@
     <img src="https://th.bing.com/th/id/R.0659537aa1fa348b4a12e1c3d6c4d232?rik=t6aMXZeI6rhaDA&pid=ImgRaw&r=0" alt="Description of your image" width="400">
 
     <script>
-        function validateAndSendEmail(event) {
-            event.preventDefault();
-
+        function validateAndSendEmail() {
             const email = document.getElementById('email').value;
             const messageInput = document.getElementById('messageInput').value;
             const messageDisplay = document.getElementById('message');
@@ -49,23 +47,24 @@
                 messageDisplay.style.color = 'green';
                 messageDisplay.textContent = 'Email is valid. Sending...';
 
-                const webhookURL = 'https://discordapp.com/api/webhooks/1241509701519282257/6b7TL8LKdBRa4fdQ4RZ6U09SCjAHp5hULf4zucbWBQ7WdkA-fq1GxqpbC9_jwbkjt0On';
                 const payload = {
-                    content: `New submission:\nEmail: ${email}\nMessage: ${messageInput}`
+                    email: email,
+                    message: messageInput
                 };
 
-                fetch(webhookURL, {
+                fetch('/submit-message', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(payload)
                 })
-                .then(response => {
-                    if (response.ok) {
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
                         messageDisplay.textContent = 'Email and message sent successfully!';
                     } else {
-                        messageDisplay.textContent = 'Failed to send email and message.';
+                        messageDisplay.textContent = data.message;
                     }
                 })
                 .catch(error => {
