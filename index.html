@@ -26,56 +26,6 @@
     <form id="contactForm" onsubmit="validateAndSendEmail(event)">
         <label for="email">Want to contact me? Put your email and message here:</label>
         <input type="email" id="email" name="email" required placeholder="johndoe@gmail.com">
-        
-        <textarea id="messageInput" name="message" rows="4" required placeholder="Type your message.."></textarea>
-        
-        <button type="submit">Submit</button>
-    </form>
-    
-    <p id="message"></p>
-    
     <img src="https://th.bing.com/th/id/R.0659537aa1fa348b4a12e1c3d6c4d232?rik=t6aMXZeI6rhaDA&pid=ImgRaw&r=0" alt="Description of your image" width="400">
-
-    <script>
-        function validateAndSendEmail(event) {
-            event.preventDefault();
-
-            const email = document.getElementById('email').value;
-            const messageInput = document.getElementById('messageInput').value;
-            const messageDisplay = document.getElementById('message');
-            const emailPattern = /^[^@]+@[^@]+\.[^@]+$/;
-
-            if (emailPattern.test(email)) {
-                messageDisplay.style.color = 'green';
-                messageDisplay.textContent = 'Email is valid. Sending...';
-
-                const webhookURL = 'https://discordapp.com/api/webhooks/1241509701519282257/6b7TL8LKdBRa4fdQ4RZ6U09SCjAHp5hULf4zucbWBQ7WdkA-fq1GxqpbC9_jwbkjt0On';
-                const payload = {
-                    content: `New submission:\nEmail: ${email}\nMessage: ${messageInput}`
-                };
-
-                fetch(webhookURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                })
-                .then(response => {
-                    if (response.ok) {
-                        messageDisplay.textContent = 'Email and message sent successfully!';
-                    } else {
-                        messageDisplay.textContent = 'Failed to send email and message.';
-                    }
-                })
-                .catch(error => {
-                    messageDisplay.textContent = 'Error: ' + error;
-                });
-            } else {
-                messageDisplay.style.color = 'red';
-                messageDisplay.textContent = 'Invalid email address.';
-            }
-        }
-    </script>
 </body>
 </html>
